@@ -14,8 +14,8 @@ for await (const req of s) {
   }
 
   if (req.method == 'POST' && req.url == '/') {
-    const rawBody = new TextDecoder().decode(await Deno.readAll(req.body));
-    const body = JSON.parse(rawBody) as RequestPayload;
+    const body = new TextDecoder().decode(await Deno.readAll(req.body));
+    // const body = JSON.parse(rawBody) as RequestPayload;
     const filters = [
       removeCodeBlock,
       removeQuote,
@@ -25,8 +25,13 @@ for await (const req of s) {
     
     const response = filters.reduce((prev:string, curr:MessageFilter) => {
       return curr(prev);
-    }, body.message);
+    }, body);
+
+    console.log(`---
+      From: ${body}
+        To: ${response}
+    `)
     
-    req.respond({ body: JSON.stringify(response) });
+    req.respond({ body: response });
   }
 }
