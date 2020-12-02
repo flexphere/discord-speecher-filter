@@ -1,5 +1,4 @@
 import fastify from 'fastify'
-import { applyFilters, removeCodeBlock, removeQuote, removeURL, emojiToLabel } from "./filters";
 const { TranslationServiceClient } = require('@google-cloud/translate').v3beta1;
 const googleCreds = require('../key.json');
 
@@ -16,17 +15,20 @@ app.get('/ping', async (request, reply) => {
 });
 
 app.post('/en-translate', async (request, reply) => {
-  const body = request.body as RequestPayload;
-  const content = applyFilters(body.content, [removeCodeBlock, removeQuote, removeURL, emojiToLabel]);
+  const body = JSON.parse(<string>request.body) as RequestPayload;
   const translationClient = new TranslationServiceClient();
   const [result] = await translationClient.translateText({
     parent: translationClient.locationPath(googleCreds.project_id, 'global'),
-    contents: [content],
+    contents: [body.content],
     mimeType: 'text/plain',
     sourceLanguageCode: 'ja-JP',
     targetLanguageCode: 'en-US',
   });
-  reply.code(200).send({ content: result.translations[0].translatedText, language: 'en-US' })
+  reply.code(200).send({
+    content: result.translations[0].translatedText,
+    language: 'en-US',
+    voice: 'en-US-Standard-D'
+  });
 });
 
 app.listen(3000, '0.0.0.0', (err, address) => {
