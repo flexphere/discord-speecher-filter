@@ -1,6 +1,6 @@
-import { MessageFilter } from "./interfaces.ts";
+import { MessageFilter } from "./interfaces";
 
-export const composeFilter = (message: string, filters: MessageFilter[]) =>{
+export const applyFilters = (message: string, filters: MessageFilter[]) => {
   return filters.reduce((prev:string, curr:MessageFilter) => {
     return curr(prev);
   }, message);

@@ -1,21 +1,12 @@
-FROM debian:stable-slim
+FROM node:13.12.0-alpine3.10
 
-# env
-ENV DENO_INSTALL /usr/local/deno
-ENV PATH=$DENO_INSTALL/bin:$PATH
-
-# install dependencies
-RUN apt update
-RUN apt install -y curl unzip
-
-# install deno
-RUN curl -fsSL https://deno.land/x/install/install.sh | sh
-
-# set workspace
 WORKDIR /workspace
 
-# copy sources
+RUN apk update && apk upgrade
+RUN apk add gcc make g++ ffmpeg python
+
+COPY package.json package-lock.json ./
+RUN npm install
+
 COPY . .
-
-# CMD ["deno", "run", "--allow-net", "src/index.ts"]
-
+CMD ["npm", "start"]

@@ -3,11 +3,10 @@ services:
   app:
     build: .
     restart: unless-stopped
-    command: "deno run --allow-net --allow-env src/index.ts"
     environment:
-      - PORT=3000
+      - GOOGLE_APPLICATION_CREDENTIALS=key.json
     ports: 
-      - 3000:3000
+      - 9090:3000
     volumes:
       - "./:/workspace"
     
