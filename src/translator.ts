@@ -1,5 +1,5 @@
+import googleCreds from '../key.json';
 const { TranslationServiceClient } = require('@google-cloud/translate').v3beta1;
-const googleCreds = require('../key.json');
 
 export const Translate = async(content:string, from:string, to:string) => {
   const translationClient = new TranslationServiceClient();

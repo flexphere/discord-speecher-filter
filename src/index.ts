@@ -1,12 +1,5 @@
 import fastify from 'fastify'
-import { ResponsePayload } from './interfaces';
 import { Translate } from './translator';
-const { TranslationServiceClient } = require('@google-cloud/translate').v3beta1;
-const googleCreds = require('../key.json');
-
-interface RequestPayload {
-  content: string
-}
 
 const app = fastify({
   logger: true

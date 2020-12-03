@@ -1,5 +1,3 @@
-import { MessageFilter } from "./interfaces";
-
 export const applyFilters = (message: string, filters: MessageFilter[]) => {
   return filters.reduce((prev:string, curr:MessageFilter) => {
     return curr(prev);

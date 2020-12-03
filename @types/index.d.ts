@@ -1,19 +1,20 @@
-export interface Voice {
+interface Voice {
   type?: string
   pitch?: number
   speed?: number
 }
-export interface RequestPayload {
+
+interface RequestPayload {
   content: string
   voice: Voice
 }
 
-export interface ResponsePayload {
+interface ResponsePayload {
   content: string
   language?: string
   voice?: Voice
 }
 
-export interface MessageFilter {
+interface MessageFilter {
   (message:string): string
 }
