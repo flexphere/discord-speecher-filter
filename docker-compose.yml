@@ -6,7 +6,7 @@ services:
     environment:
       - GOOGLE_APPLICATION_CREDENTIALS=key.json
     ports: 
-      - 80:3000
+      - 3000:3000
     volumes:
       - "./:/workspace"
     
