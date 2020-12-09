@@ -37,6 +37,20 @@ app.post('/ja-translate', async (request, reply) => {
   reply.code(200).send(response);
 });
 
+app.post('/id-translate', async (request, reply) => {
+  const body = request.body as RequestPayload;
+  const translatedText = await Translate(body.content, 'en-US', 'ja-JP')
+  const response: ResponsePayload = {
+    content: translatedText,
+    language: 'id-ID',
+    voice: {
+      type: 'id-ID-Standard-B',
+      speed: 1
+    }
+  };
+  reply.code(200).send(response);
+});
+
 app.listen(3000, '0.0.0.0', (err, address) => {
   if (err) throw err
   app.log.info(`server listening on ${address}`)
