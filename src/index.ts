@@ -9,7 +9,7 @@ app.get('/ping', async (request, reply) => {
   reply.code(200).send({ pong: 1 })
 });
 
-app.post('/en-translate', async (request, reply) => {
+app.post('/ja2en', async (request, reply) => {
   const body = request.body as RequestPayload;
   const translatedText = await Translate(body.content, 'ja-JP', 'en-US')
   const response: ResponsePayload = {
@@ -23,7 +23,7 @@ app.post('/en-translate', async (request, reply) => {
   reply.code(200).send(response);
 });
 
-app.post('/ja-translate', async (request, reply) => {
+app.post('/en2ja', async (request, reply) => {
   const body = request.body as RequestPayload;
   const translatedText = await Translate(body.content, 'en-US', 'ja-JP')
   const response: ResponsePayload = {
@@ -37,7 +37,7 @@ app.post('/ja-translate', async (request, reply) => {
   reply.code(200).send(response);
 });
 
-app.post('/id-translate', async (request, reply) => {
+app.post('/ja2id', async (request, reply) => {
   const body = request.body as RequestPayload;
   const translatedText = await Translate(body.content, 'ja-JP', 'id-ID')
   const response: ResponsePayload = {
@@ -45,6 +45,21 @@ app.post('/id-translate', async (request, reply) => {
     language: 'id-ID',
     voice: {
       type: 'id-ID-Standard-B',
+      speed: 1
+    }
+  };
+  console.log(response);
+  reply.code(200).send(response);
+});
+
+app.post('/id2ja', async (request, reply) => {
+  const body = request.body as RequestPayload;
+  const translatedText = await Translate(body.content, 'id-ID', 'ja-JP')
+  const response: ResponsePayload = {
+    content: translatedText,
+    language: 'ja-JP',
+    voice: {
+      type: 'ja-JP-Standard-C',
       speed: 1
     }
   };
