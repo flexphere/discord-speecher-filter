@@ -39,7 +39,7 @@ app.post('/ja-translate', async (request, reply) => {
 
 app.post('/id-translate', async (request, reply) => {
   const body = request.body as RequestPayload;
-  const translatedText = await Translate(body.content, 'en-US', 'ja-JP')
+  const translatedText = await Translate(body.content, 'ja-JP', 'id-ID')
   const response: ResponsePayload = {
     content: translatedText,
     language: 'id-ID',
