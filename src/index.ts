@@ -48,6 +48,7 @@ app.post('/id-translate', async (request, reply) => {
       speed: 1
     }
   };
+  console.log(response);
   reply.code(200).send(response);
 });
 
