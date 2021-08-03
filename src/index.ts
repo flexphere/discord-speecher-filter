@@ -1,5 +1,6 @@
 import fastify from 'fastify'
 import { Translate } from './translator';
+import fetch from 'node-fetch';
 
 const app = fastify({
   logger: true
@@ -7,6 +8,22 @@ const app = fastify({
 
 app.get('/ping', async (request, reply) => {
   reply.code(200).send({ pong: 1 })
+});
+
+app.post('/ja2onduru', async (request, reply) => {
+  const body = request.body as RequestPayload;
+  const encoded = encodeURI(body.content);
+  const res = await fetch('https://smdn.jp/works/tools/junk/OndulishTranslator/bin/OndulishTranslator.exe', { method: 'post', body: `text=${encoded}` });
+  const text = await res.text();  
+  const response: ResponsePayload = {
+    content: text,
+    language: 'ja-JP',
+    voice: {
+      type: 'ja-JP-Standard-C',
+      speed: 1
+    }
+  };
+  reply.code(200).send(response);
 });
 
 app.post('/ja2en', async (request, reply) => {
