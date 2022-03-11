@@ -10,7 +10,7 @@ app.get("/ping", async (request, reply) => {
   reply.code(200).send({ pong: 1 });
 });
 
-app.get("/warai", async (request, reply) => {
+app.post("/warai", async (request, reply) => {
   const body = request.body as RequestPayload;
 
   const laughs = {
