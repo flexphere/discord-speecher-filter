@@ -1,18 +1,9 @@
 import fastify from "fastify";
 import { Translate } from "./translator";
 import fetch from "node-fetch";
-import path from "path";
-import serveStatic from "fastify-static";
 
 const app = fastify({
   logger: true,
-});
-
-console.log(path.join(__dirname, "public"));
-
-app.register(serveStatic, {
-  root: path.join(__dirname, "public"),
-  // prefix: "/public/", // optional: default '/'
 });
 
 app.get("/ping", async (request, reply) => {
