@@ -27,7 +27,7 @@ app.post("/warai", async (request, reply) => {
     const pattern = new RegExp(`${key}+$`);
     body.content = body.content.replace(pattern, (a, pos, c) => {
       let len = c.slice(pos).length > max ? max : c.slice(pos).length - 1;
-      return value.prefix + value.iter.repeat(len - 1);
+      return value.prefix + value.iter.repeat(len);
     });
   }
 
