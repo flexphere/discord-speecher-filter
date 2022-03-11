@@ -14,18 +14,17 @@ app.post("/warai", async (request, reply) => {
   const body = request.body as RequestPayload;
 
   const laughs = {
-    hw: { prefix: "", iter: "は" },
-    aw: { prefix: "あ", iter: "は" },
-    kw: { prefix: "", iter: "クッ" },
-    ow: { prefix: "お", iter: "ほ" },
-    yw: { prefix: "や", iter: "は" },
+    hw: { regex: new RegExp(`hw+|ｈｗ+$`), prefix: "", iter: "は" },
+    aw: { regex: new RegExp(`aw+|ａｗ+$`), prefix: "あ", iter: "は" },
+    kw: { regex: new RegExp(`kw+|ｋｗ+$`), prefix: "", iter: "クッ" },
+    ow: { regex: new RegExp(`ow+|ｏｗ+$`), prefix: "お", iter: "ほ" },
+    yw: { regex: new RegExp(`yw+|ｙｗ+$`), prefix: "や", iter: "は" },
   };
 
   const max = 20;
 
   for (const [key, value] of Object.entries(laughs)) {
-    const pattern = new RegExp(`${key}+$`);
-    body.content = body.content.replace(pattern, (a, pos, c) => {
+    body.content = body.content.replace(value.regex, (a, pos, c) => {
       let len = c.slice(pos).length > max ? max : c.slice(pos).length - 1;
       return value.prefix + value.iter.repeat(len);
     });
