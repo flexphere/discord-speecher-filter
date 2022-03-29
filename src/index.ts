@@ -83,7 +83,7 @@ app.post("/en2ja", async (request, reply) => {
     content: translatedText,
     language: "ja-JP",
     voice: {
-      type: "ja-JP-Standard-C",
+      type: body.voice.type,
       speed: 1,
     },
   };
